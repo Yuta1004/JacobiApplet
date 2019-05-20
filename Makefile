@@ -1,9 +1,15 @@
 JAVAC = ./javac
+JAVA = ./java
 APPLET = ./appletviewer
 
 run:
-	${JAVAC} Main.java
-	${APPLET} Main.java
+	${JAVAC} main.java
+	${APPLET} main.java
+
+test:
+	${JAVAC} JacobiCalculatorTest.java
+	${JAVA} JacobiCalculatorTest
+
 
 clean:
 	rm *.class
