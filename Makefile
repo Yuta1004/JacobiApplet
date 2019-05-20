@@ -3,8 +3,8 @@ JAVA = ./java
 APPLET = ./appletviewer
 
 run:
-	${JAVAC} main.java
-	${APPLET} main.java
+	${JAVAC} Main.java
+	${APPLET} Main.java
 
 test:
 	${JAVAC} JacobiCalculatorTest.java
