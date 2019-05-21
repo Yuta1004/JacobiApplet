@@ -1,9 +1,10 @@
 import java.applet.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /* <applet code="Main.class" width="1000" height="700"></applet> */
 
-public class Main extends Applet{
+public class Main extends Applet implements AdjustmentListener{
     // for Applet
     private int originX, originY, axisXLength, axisYLength;
     private int axisXStart, axisYStart, axisXEnd, axisYEnd;
@@ -11,6 +12,7 @@ public class Main extends Applet{
     private Color black, white;
     private Color[] plotColors;
     private Font graphFont;
+    private Scrollbar plotNScrollbar;
 
     // for Jacobi
     private double formulaCons[][] = {{5.0, 3.0, 1.0, 1.0, 1.0},
@@ -38,7 +40,7 @@ public class Main extends Applet{
         axisYStart = originY + axisYLength / 2;
         axisXEnd = originX + axisXLength;
         axisYEnd = originY - axisYLength / 2;
-        scaleX = 800 / plotN;
+        scaleX = 800.0 / plotN;
         scaleY = 50.0;
 
         // Set Color
@@ -53,6 +55,19 @@ public class Main extends Applet{
 
         // Set Font
         graphFont = new Font("TimesRoman", Font.PLAIN, 30);
+
+        // Init ScrollBar
+        setLayout(null);
+        plotNScrollbar = new Scrollbar(Scrollbar.HORIZONTAL, 0, 5, 30, 300);
+        plotNScrollbar.setBounds(250, 20, 500, 10);
+        plotNScrollbar.addAdjustmentListener(this);
+        add(plotNScrollbar);
+    }
+
+    public void adjustmentValueChanged(AdjustmentEvent e){
+        plotN = plotNScrollbar.getValue();
+        scaleX = 800.0 / plotN;
+        repaint();
     }
 
     public void paint(Graphics g){
@@ -143,4 +158,5 @@ public class Main extends Applet{
         int y_i = originY - (int)(scaleY * y) - (int)size / 2;
         g.fillOval(x_i, y_i, (int) size, (int) size);
     }
+
 }
