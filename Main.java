@@ -58,7 +58,7 @@ public class Main extends Applet implements AdjustmentListener{
 
         // Init ScrollBar
         setLayout(null);
-        plotNScrollbar = new Scrollbar(Scrollbar.HORIZONTAL, 0, 5, 30, 300);
+        plotNScrollbar = new Scrollbar(Scrollbar.HORIZONTAL, 0, 5, 30, 171);
         plotNScrollbar.setBounds(250, 20, 500, 10);
         plotNScrollbar.addAdjustmentListener(this);
         add(plotNScrollbar);
