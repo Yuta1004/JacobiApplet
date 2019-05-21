@@ -100,8 +100,10 @@ public class Main extends Applet{
             for(int idx = 0; idx < formulaAns.length; ++ idx){
                 g2.setColor(plotColors[idx % 5]);
                 g2.setStroke(new BasicStroke(3.0f));
-                drawGraphLine(g2, k, nowKAns[idx], k + 1, nextKAns[idx]); 
-            } 
+                drawGraphLine(g2, k, nowKAns[idx], k + 1, nextKAns[idx]);
+                drawGraphOval(g2, k, nowKAns[idx], 10.0);
+                drawGraphOval(g2, k + 1, nextKAns[idx], 10.0);
+            }
         }
     }
 
@@ -128,4 +130,13 @@ public class Main extends Applet{
         g.drawString(viewStr, x_i, y_i);
     }
 
+    private void drawGraphOval(Graphics g, int x, int y, int size){
+        drawGraphOval(g, (double) x, (double) y, (double) size);
+    }
+
+    private void drawGraphOval(Graphics g, double x, double y, double size){
+        int x_i = originX + (int)(scaleX * x) - (int)size / 2;
+        int y_i = originY - (int)(scaleY * y) - (int)size / 2;
+        g.fillOval(x_i, y_i, (int) size, (int) size);
+    }
 }
