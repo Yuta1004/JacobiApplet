@@ -77,7 +77,7 @@ public class Main extends Applet{
             if(y != 0){
                 if(y % 5 == 0){
                     drawGraphLine(g, -1.5, y, 1.5, y);
-                    drawGraphString(g, String.valueOf(y), -5, y + 0.17);
+                    drawGraphCenteringString(g, graphFont, String.valueOf(y), -2.5, y);
                 }else{
                     drawGraphLine(g, -0.7, y, 0.7, y);
                 }
@@ -86,7 +86,7 @@ public class Main extends Applet{
         for(int x = 0; x <= plotN + 3; ++ x){
             if(x > 0 && x % 10 == 0){
                 drawGraphLine(g, x, -0.2, x, 0.2);
-                drawGraphString(g, String.valueOf(x), x - 1.5, -0.7);
+                drawGraphCenteringString(g, graphFont, String.valueOf(x), x, -0.5);
             }else{
                 drawGraphLine(g, x, -0.1, x, 0.1);
             }
@@ -120,13 +120,17 @@ public class Main extends Applet{
         g.drawLine(x0_i, y0_i, x1_i, y1_i);
     }
 
-    private void drawGraphString(Graphics g, String viewStr, int x, int y){
-        drawGraphString(g, viewStr, (double) x, (double) y);
+    private void drawGraphCenteringString(Graphics g, Font font, String viewStr, int x, int y){
+        drawGraphCenteringString(g, font, viewStr, (double) x, (double) y);
     }
 
-    private void drawGraphString(Graphics g, String viewStr, double x, double y){
+    private void drawGraphCenteringString(Graphics g, Font font, String viewStr, double x, double y){
+        g.setFont(font);
+        FontMetrics fm = g.getFontMetrics();
         int x_i = originX + (int)(scaleX * x);
         int y_i = originY - (int)(scaleY * y);
+        x_i -= fm.stringWidth(viewStr) / 2;
+        y_i += fm.getHeight() / 2;
         g.drawString(viewStr, x_i, y_i);
     }
 
