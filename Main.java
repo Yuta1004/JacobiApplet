@@ -27,7 +27,7 @@ public class Main extends Applet{
         // Init JacobiCalclator
         jacobi = new JacobiCalculator(formulaCons, formulaAns);
         jacobi.setInitValue(initValues);
-        plotN = 50;
+        plotN = 100;
 
         // Set GraphInfo
         originX = 100;
@@ -38,7 +38,7 @@ public class Main extends Applet{
         axisYStart = originY + axisYLength / 2;
         axisXEnd = originX + axisXLength;
         axisYEnd = originY - axisYLength / 2;
-        scaleX = 15.0;
+        scaleX = Math.max(5, 800 / plotN);
         scaleY = 50.0;
 
         // Set Color
@@ -83,7 +83,7 @@ public class Main extends Applet{
                 }
             }
         }
-        for(int x = 0; x <= plotN + 3; ++ x){
+        for(int x = 0; x <= plotN + 1; ++ x){
             if(x > 0 && x % 10 == 0){
                 drawGraphLine(g, x, -0.2, x, 0.2);
                 drawGraphCenteringString(g, graphFont, String.valueOf(x), x, -0.5);
