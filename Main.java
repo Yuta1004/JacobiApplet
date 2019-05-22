@@ -122,7 +122,7 @@ public class Main extends Applet implements AdjustmentListener{
         }
     }
 
-    // グラフ上の値を実際の座標に直して描画
+    // グラフ上の値を実際の座標に直して描画(線)
     private void drawGraphLine(Graphics g, int x0, int y0, int x1, int y1){
         drawGraphLine(g, (double) x0, (double) y0, (double) x1, (double) y1);
     }
@@ -135,6 +135,7 @@ public class Main extends Applet implements AdjustmentListener{
         g.drawLine(x0_i, y0_i, x1_i, y1_i);
     }
 
+    // グラフ上の値を実際の座標に直して描画(テキスト)
     private void drawGraphCenteringString(Graphics g, Font font, String viewStr, int x, int y){
         drawGraphCenteringString(g, font, viewStr, (double) x, (double) y);
     }
@@ -149,6 +150,7 @@ public class Main extends Applet implements AdjustmentListener{
         g.drawString(viewStr, x_i, y_i);
     }
 
+    // グラフ上の値を実際に値に直して描画(丸)
     private void drawGraphOval(Graphics g, int x, int y, int size){
         drawGraphOval(g, (double) x, (double) y, (double) size);
     }
