@@ -9,7 +9,7 @@ public class Main extends Applet implements AdjustmentListener{
     private int originX, originY, axisXLength, axisYLength;
     private int axisXStart, axisYStart, axisXEnd, axisYEnd;
     private double scaleX, scaleY;
-    private Color black, white;
+    private Color black, white, gray;
     private Color[] plotColors;
     private Font graphFont;
     private Scrollbar plotNScrollbar;
@@ -48,6 +48,7 @@ public class Main extends Applet implements AdjustmentListener{
         // Set Color
         black = new Color(0, 0, 0);
         white = new Color(255, 255, 255);
+        gray = new Color(200, 200, 200);
         plotColors = new Color[5];
         plotColors[0] = new Color(255, 93, 93);
         plotColors[1] = new Color(207, 95, 255);
@@ -61,7 +62,7 @@ public class Main extends Applet implements AdjustmentListener{
         // Init ScrollBar
         setLayout(null);
         plotNScrollbar = new Scrollbar(Scrollbar.HORIZONTAL, 0, 5, 30, 175);
-        plotNScrollbar.setBounds(250, 60, 500, 20);
+        plotNScrollbar.setBounds(250, 70, 500, 20);
         plotNScrollbar.addAdjustmentListener(this);
         add(plotNScrollbar);
     }
@@ -89,18 +90,25 @@ public class Main extends Applet implements AdjustmentListener{
         g.drawLine(originX + 10, axisYEnd + 20, originX, axisYEnd);
 
         // Graph Helper Line
-        g.setColor(black);
         for(int y = -5; y <= 5; ++ y){
             if(y != 0){
+                // Normal
+                int yPos = originY - (int)(scaleY * y);
+                g.setColor(gray);
+                g.drawLine(30, yPos, 970, yPos);
+
+                // Bold
+                g.setColor(black);
                 if(y % 5 == 0){
-                    drawGraphLine(g, -1.0, y, 1.0, y);
-                    drawGraphCenteringString(g, graphFont, String.valueOf(y), -2.0, y);
+                    g.drawLine(originX - 30, yPos, originX + 30, yPos);
+                    drawCenteringString(g, graphFont, String.valueOf(y), originX - 40, yPos);
                 }else{
-                    drawGraphLine(g, -0.5, y, 0.5, y);
+                    g.drawLine(originX - 15, yPos, originX + 15, yPos);
                 }
             }
         }
         for(int x = 0; x <= plotN + 1; ++ x){
+            g.setColor(black);
             if(x > 0 && x % 10 == 0){
                 drawGraphLine(g, x, -0.2, x, 0.2);
                 drawGraphCenteringString(g, graphFont, String.valueOf(x), x, -0.5);
@@ -113,7 +121,7 @@ public class Main extends Applet implements AdjustmentListener{
         g.setFont(graphFont);
         graphTitle = graphTitle.split(" ", 0)[0];
         graphTitle += " (k <= " + String.valueOf(plotN) + ")";
-        drawCenteringString(g, graphFont, graphTitle, 500, 50);
+        drawCenteringString(g, graphFont, graphTitle, 500, 30);
 
         // Plot
         Graphics2D g2 = (Graphics2D) g;
@@ -174,7 +182,7 @@ public class Main extends Applet implements AdjustmentListener{
         g.setFont(font);
         FontMetrics fm = g.getFontMetrics();
         x -= fm.stringWidth(viewStr) / 2;
-        y -= fm.getHeight() / 2;
+        y += fm.getHeight() / 2;
         g.drawString(viewStr, x, y);
     }
 
