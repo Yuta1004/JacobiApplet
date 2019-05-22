@@ -2,7 +2,7 @@ import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
 
-/* <applet code="Main.class" width="1000" height="700"></applet> */
+/* <applet code="Main.class" width="1000" height="800"></applet> */
 
 public class Main extends Applet implements AdjustmentListener{
     // for Applet
@@ -13,13 +13,14 @@ public class Main extends Applet implements AdjustmentListener{
     private Color[] plotColors;
     private Font graphFont;
     private Scrollbar plotNScrollbar;
+    private String graphTitle;
 
     // for Jacobi
     private double formulaCons[][] = {{5.0, 3.0, 1.0, 1.0, 1.0},
-                           {1.0, 4.0, -2.0, 1.0, 1.0},
-                           {1.0, -2.0, 3.0, -1.0, 1.0},
-                           {1.0, 1.0, 2.0, 4.0, 1.0},
-                           {1.0, 1.0, 1.0, -2.0, 5.0}};
+                                      {1.0, 4.0, -2.0, 1.0, 1.0},
+                                      {1.0, -2.0, 3.0, -1.0, 1.0},
+                                      {1.0, 1.0, 2.0, 4.0, 1.0},
+                                      {1.0, 1.0, 1.0, -2.0, 5.0}};
     private double formulaAns[] = {10.0, 3.0, -1.0, -3.0, -5.0};
     private double initValues[] = {5.0, -5.0, 5.0, -5.0, 5.0};
     private JacobiCalculator jacobi;
@@ -33,7 +34,7 @@ public class Main extends Applet implements AdjustmentListener{
 
         // Set GraphInfo
         originX = 100;
-        originY = 350;
+        originY = 400;
         axisXLength = 850;
         axisYLength = 600;
         axisXStart = originX - 50;
@@ -42,6 +43,7 @@ public class Main extends Applet implements AdjustmentListener{
         axisYEnd = originY - axisYLength / 2;
         scaleX = 800.0 / plotN;
         scaleY = 50.0;
+        graphTitle = "ヤコビ法における解の収束グラフ";
 
         // Set Color
         black = new Color(0, 0, 0);
@@ -58,8 +60,8 @@ public class Main extends Applet implements AdjustmentListener{
 
         // Init ScrollBar
         setLayout(null);
-        plotNScrollbar = new Scrollbar(Scrollbar.HORIZONTAL, 0, 5, 30, 171);
-        plotNScrollbar.setBounds(250, 20, 500, 10);
+        plotNScrollbar = new Scrollbar(Scrollbar.HORIZONTAL, 0, 5, 30, 175);
+        plotNScrollbar.setBounds(250, 60, 500, 20);
         plotNScrollbar.addAdjustmentListener(this);
         add(plotNScrollbar);
     }
@@ -73,7 +75,7 @@ public class Main extends Applet implements AdjustmentListener{
     public void paint(Graphics g){
         // Background
         g.setColor(white);
-        g.fillRect(0, 0, 1000, 700);
+        g.fillRect(0, 0, 1000, 800);
 
         // Axis
         g.setFont(graphFont);
@@ -106,6 +108,12 @@ public class Main extends Applet implements AdjustmentListener{
                 drawGraphLine(g, x, -0.1, x, 0.1);
             }
         }
+
+        // Set Graph Title
+        g.setFont(graphFont);
+        graphTitle = graphTitle.split(" ", 0)[0];
+        graphTitle += " (k <= " + String.valueOf(plotN) + ")";
+        drawCenteringString(g, graphFont, graphTitle, 500, 50);
 
         // Plot
         Graphics2D g2 = (Graphics2D) g;
@@ -159,6 +167,15 @@ public class Main extends Applet implements AdjustmentListener{
         int x_i = originX + (int)(scaleX * x) - (int)size / 2;
         int y_i = originY - (int)(scaleY * y) - (int)size / 2;
         g.fillOval(x_i, y_i, (int) size, (int) size);
+    }
+
+    // テキストをセンタリングして描画
+    private void drawCenteringString(Graphics g, Font font, String viewStr, int x, int y){
+        g.setFont(font);
+        FontMetrics fm = g.getFontMetrics();
+        x -= fm.stringWidth(viewStr) / 2;
+        y -= fm.getHeight() / 2;
+        g.drawString(viewStr, x, y);
     }
 
 }
