@@ -109,6 +109,7 @@ public class Main extends Applet implements AdjustmentListener{
             }
         }
         drawCenteringString(g, graphHelpFont, "y", originX, axisXStart);
+        drawCenteringString(g, graphHelpFont, "解", 30, 270);
 
         // Graph Helper Line(k)
         for(int x = 0; x <= plotN + 1; ++ x){
@@ -121,7 +122,7 @@ public class Main extends Applet implements AdjustmentListener{
             }
         }
         drawCenteringString(g, graphHelpFont, "k", axisXEnd + 20, originY - 7);
-        drawCenteringString(g, graphHelpFont, "繰り返し回数", 500, 650);
+        drawCenteringString(g, graphHelpFont, "繰り返し回数", 500, 680);
 
         // Set Graph Title
         g.setFont(graphFont);
