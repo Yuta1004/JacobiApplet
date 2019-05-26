@@ -146,6 +146,17 @@ public class Main extends Applet implements AdjustmentListener{
             g.drawLine(x, y, x + 40, y);
             drawCenteringString(g, graphFont, "x" + String.valueOf(idx + 1), x + 70, y - 10);
         }
+
+        // View Init Values
+        String viewInitValueStr = "初期値 : (";
+        for(int idx = 0; idx < formulaAns.length; ++ idx){
+            viewInitValueStr += String.valueOf(initValues[idx]);
+            if(idx < formulaAns.length - 1){
+                viewInitValueStr += ", ";
+            }
+        }
+        g2.setColor(black);
+        drawCenteringString(g, graphFont, viewInitValueStr + ")", 500, 700);
     }
 
     // グラフ上の値を実際の座標に直して描画(線)
