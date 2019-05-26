@@ -11,7 +11,7 @@ public class Main extends Applet implements AdjustmentListener{
     private double scaleX, scaleY;
     private Color black, white, gray;
     private Color[] plotColors;
-    private Font graphFont;
+    private Font graphFont, graphHelpFont;
     private Scrollbar plotNScrollbar;
     private String graphTitle;
 
@@ -58,6 +58,7 @@ public class Main extends Applet implements AdjustmentListener{
 
         // Set Font
         graphFont = new Font("TimesRoman", Font.PLAIN, 30);
+        graphHelpFont = new Font("TimesRoman", Font.PLAIN, 25);
 
         // Init ScrollBar
         setLayout(null);
@@ -89,7 +90,7 @@ public class Main extends Applet implements AdjustmentListener{
         g.drawLine(originX - 10, axisYEnd + 20, originX, axisYEnd);
         g.drawLine(originX + 10, axisYEnd + 20, originX, axisYEnd);
 
-        // Graph Helper Line
+        // Graph Helper Line(y)
         for(int y = -5; y <= 5; ++ y){
             if(y != 0){
                 // Normal
@@ -107,6 +108,9 @@ public class Main extends Applet implements AdjustmentListener{
                 }
             }
         }
+        drawCenteringString(g, graphHelpFont, "y", originX, axisXStart);
+
+        // Graph Helper Line(k)
         for(int x = 0; x <= plotN + 1; ++ x){
             g.setColor(black);
             if(x > 0 && x % 10 == 0){
@@ -116,6 +120,8 @@ public class Main extends Applet implements AdjustmentListener{
                 drawGraphLine(g, x, -0.1, x, 0.1);
             }
         }
+        drawCenteringString(g, graphHelpFont, "k", axisXEnd + 20, originY - 7);
+        drawCenteringString(g, graphHelpFont, "繰り返し回数", 500, 650);
 
         // Set Graph Title
         g.setFont(graphFont);
@@ -156,7 +162,7 @@ public class Main extends Applet implements AdjustmentListener{
             }
         }
         g2.setColor(black);
-        drawCenteringString(g, graphFont, viewInitValueStr + ")", 500, 700);
+        drawCenteringString(g, graphHelpFont, viewInitValueStr + ")", 500, 750);
     }
 
     // グラフ上の値を実際の座標に直して描画(線)
