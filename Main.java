@@ -53,8 +53,8 @@ public class Main extends Applet implements AdjustmentListener{
         plotColors[0] = new Color(255, 93, 93);
         plotColors[1] = new Color(207, 95, 255);
         plotColors[2] = new Color(93, 126, 255);
-        plotColors[3] = new Color(93, 255, 94);
-        plotColors[4] = new Color(93, 248, 255);
+        plotColors[3] = new Color(59, 173, 77);
+        plotColors[4] = new Color(163, 185, 0);
 
         // Set Font
         graphFont = new Font("TimesRoman", Font.PLAIN, 30);
@@ -135,6 +135,16 @@ public class Main extends Applet implements AdjustmentListener{
                 drawGraphOval(g2, k, nowKAns[idx], 10.0);
                 drawGraphOval(g2, k + 1, nextKAns[idx], 10.0);
             }
+        }
+
+        // Legends
+        for(int idx = 0; idx < formulaAns.length; ++ idx){
+            int x = 700 + (idx % 2) * 100;
+            int y = 130 + (idx / 2) * 30;
+            g2.setColor(plotColors[idx % 5]);
+            g2.setStroke(new BasicStroke(5.0f));
+            g.drawLine(x, y, x + 40, y);
+            drawCenteringString(g, graphFont, "x" + String.valueOf(idx + 1), x + 70, y - 10);
         }
     }
 
